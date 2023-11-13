@@ -23,10 +23,10 @@ public class WalletAPI {
         return null;
     }
 
-    private static Map<String, Object> createUserAccount(String accountNumber, String name, String phoneNumber,
+    private static Map<String, Object> createUserAccount(String id, String name, String phoneNumber,
             double balance) {
         Map<String, Object> user = new HashMap<>();
-        user.put("accountNumber", accountNumber);
+        user.put("id", id);
         user.put("name", name);
         user.put("phoneNumber", phoneNumber);
         user.put("balance", balance);
