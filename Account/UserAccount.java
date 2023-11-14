@@ -11,12 +11,14 @@ import Account.BillManager.Bill.Providor;
 
 public abstract class UserAccount {
     protected String userName;
+    protected String password;
     protected String phoneNumber;
-    protected String bankingID;
+    protected int bankingID;
     protected BillManager billManager;
 
-    public UserAccount(String userName, String phoneNumber, String bankingID) {
+    public UserAccount(String userName, String phoneNumber, int bankingID,String password) {
         this.userName = userName;
+        this.password=password;
         this.phoneNumber = phoneNumber;
         this.bankingID = bankingID;
         this.billManager = new BillManager(phoneNumber);
@@ -31,12 +33,15 @@ public abstract class UserAccount {
     public String getUserName() {
         return userName;
     }
+    public String getPassword() {
+        return password;
+    }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public String getBankingID() {
+    public int getBankingID() {
         return bankingID;
     }
 

@@ -1,12 +1,9 @@
 package Database;
 
-import java.util.Map;
+import Account.UserAccount;
 
 public interface ORM {
-    void add(Map<String, Object> newMap);
+    void add(UserAccount user);
 
-    Map<String, Object> get(String key, Object value);
-
-    Boolean update(String id, String targetKey, Object newValue);
-
+    UserAccount get(String username);
 }

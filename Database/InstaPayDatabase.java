@@ -1,33 +1,27 @@
 package Database;
 
+import Account.UserAccount;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class InstaPayDatabase implements ORM {
-    private List<Map<String, Object>> accounts = new ArrayList<>();
+    private List<UserAccount> accounts = new ArrayList<>();
 
     @Override
-    public void add(Map<String, Object> newMap) {
-        accounts.add(newMap);
+    public void add(UserAccount user) {
+        accounts.add(user);
     }
-
+public int getnum(){
+        return accounts.size();
+}
     @Override
-    public Map<String, Object> get(String key, Object value) {
-        for (Map<String, Object> account : accounts) {
-            if (account.get(key).equals(value))
+    public UserAccount get(String username) {
+        for (UserAccount account : accounts) {
+            if (account.getUserName().equals(username)) {
                 return account;
+            }
         }
         return null;
-    }
-
-    @Override
-    public Boolean update(String id, String targetKey, Object newValue) {
-        Map<String, Object> account = get("id", id);
-        if (account != null && account.get(targetKey) != null) {
-            account.put(targetKey, newValue);
-            return true;
-        }
-        return false;
     }
 }

@@ -6,8 +6,8 @@ import Account.BillManager.Bill.Bill;
 
 public class WalletAccountUser extends UserAccount {
 
-    public WalletAccountUser(String userName, String phoneNumber, String bankingID) {
-        super(userName, phoneNumber, bankingID);
+    public WalletAccountUser(String userName, String phoneNumber, int bankingID,String password) {
+        super(userName,phoneNumber ,bankingID,password );
     }
 
     @Override
