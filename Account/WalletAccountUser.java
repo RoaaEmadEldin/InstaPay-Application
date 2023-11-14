@@ -1,6 +1,8 @@
 package Account;
 
+import API.BankAPI;
 import API.WalletAPI;
+import Account.BillManager.Bill.Bill;
 
 public class WalletAccountUser extends UserAccount {
 
@@ -15,8 +17,9 @@ public class WalletAccountUser extends UserAccount {
 
     @Override
     public Boolean withdraw(double amount) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'withdraw'");
+        if (inquireBalance() >= amount)
+            return WalletAPI.setUserBalance(bankingID, amount);
+        return false;
     }
 
     @Override
@@ -24,5 +27,4 @@ public class WalletAccountUser extends UserAccount {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deposite'");
     }
-
 }

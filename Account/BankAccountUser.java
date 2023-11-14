@@ -15,14 +15,15 @@ public class BankAccountUser extends UserAccount {
 
     @Override
     public Boolean withdraw(double amount) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'withdraw'");
+        amount = Math.abs(amount);
+        if (inquireBalance() >= amount)
+            return BankAPI.setUserBalance(bankingID, inquireBalance() - amount);
+        return false;
     }
 
     @Override
     public Boolean deposite(double amount) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deposite'");
+        amount = Math.abs(amount);
+        return BankAPI.setUserBalance(bankingID, inquireBalance() + amount);
     }
-
 }

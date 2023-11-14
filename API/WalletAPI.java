@@ -23,6 +23,16 @@ public class WalletAPI {
         return null;
     }
 
+    public static Boolean setUserBalance(String id, double balance) {
+        for (Map<String, Object> user : users) {
+            if (user.get("id").equals(id)) {
+                user.put("balance", balance);
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static Map<String, Object> createUserAccount(String id, String name, String phoneNumber,
             double balance) {
         Map<String, Object> user = new HashMap<>();
