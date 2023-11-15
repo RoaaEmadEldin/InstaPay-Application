@@ -1,6 +1,9 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+import Account.BankAccountUser;
+import Account.BillManager.Bill.Bill;
 import Account.UserAccount;
 import Authentication.Authentication;
 import Authentication.BankAuthentication;
@@ -12,18 +15,21 @@ public class App {
     public static void main(String[] args) {
         int answer = 0;
         boolean run = true;
-        UserAccount account;
+        UserAccount account = null;
         String status = "registration";
         System.out.println("Welcome to Instapay Application:)");
         System.out.println("Would you like to: ");
         while (run) {
             // clearScreen();
+            if (status.equals("actions")){
+                System.out.println("\n----------------- Welcome Back " + account.getUserName() + " -----------------\n");
+            }
             ArrayList<String> menu = getMainMenu(status);
             for (int i = 0; i < menu.size(); i++) {
                 System.out.println("    " + (i + 1) + "." + menu.get(i));
             }
             System.out.println();
-            System.out.println("Select Action: ");
+            System.out.print("Select Action: ");
             answer = Integer.parseInt(scanner.nextLine());
             // clearScreen();
             switch (menu.get(answer - 1)) {
@@ -34,14 +40,18 @@ public class App {
                     System.out.print("Enter Your Password: ");
                     password = scanner.nextLine();
                     account = Authentication.login(username, password);
-                    status = "actions";
+                    if (account != null){
+                        status = "actions";
+                    }
                     break;
                 }
                 case "Sign Up": {
-                    System.out.println("Select Account Type.");
+                    System.out.println();
                     System.out.println("1. Bank Account");
                     System.out.println("2. Wallet Account");
+                    System.out.print("Select Account Type: ");
                     String type = scanner.nextLine();
+                    System.out.println();
                     Authentication auth;
                     if (type.equals("1")) {
                         System.out.print("Enter Phone Number: ");
@@ -60,7 +70,7 @@ public class App {
                         if (!auth.Signup(username, password))
                             break;
 
-                        System.out.println("Account Added, Please Log In.");
+                        System.out.println("\nAccount Added, Please Log In.");
                         break;
                     } else if (type.equals("2")) {
                         System.out.print("Enter Phone Number: ");
@@ -77,9 +87,74 @@ public class App {
                         if (!auth.Signup(username, password))
                             break;
 
-                        System.out.println("Account Added, Please Log In.");
+                        System.out.println("\nAccount Added, Please Log In.");
                         break;
                     }
+                }
+                case "Transfer Money": {
+                    if (account instanceof BankAccountUser){
+                        status = "Transfer-Bank";
+                    }
+                    else{
+                        status = "Transfer-Normal";
+                    }
+                    break;
+                }
+                case "Transfer to another Instapay Account.":{
+                    // Call Implementation Here
+                    break;
+                }
+                case "Transfer to Wallet.":{
+                    // Call Implementation Here
+                    System.out.println("wallet transfer");
+                    break;
+                }
+                case "Transfer to Bank Account.":{
+                    System.out.println("bank transfer");
+                    // Call Implementation Here
+                    break;
+                }
+                case "Inquire Balance": {
+                    System.out.println("\nYour Current Balance is: ");
+                    System.out.print(account.inquireBalance());
+                    break;
+                }
+                case "Pay Bills":{
+                    List<Bill> accountBills = account.getBills();
+                    int i = 1;
+                    System.out.println("Your Bills: \n");
+                    for (Bill bill : accountBills) {
+                        System.out.println("    " + (i) + "." + bill);
+                        i++;
+                    }
+                    System.out.println();
+                    System.out.print("Select the Bill You Want to Pay: ");
+                    int choice = Integer.parseInt(scanner.nextLine());
+                    if (account.payBill(account.getBills().get(choice - 1))){
+                        System.out.println("The Selected Bill is Payed Successfully");
+                    }
+                    else{
+                        double billPrice = account.getBills().get(choice - 1).getPrice();
+                        double balance = account.inquireBalance();
+                        System.out.println("Your Balance is Insufficient. Please Deposit " + (billPrice - balance) + " to be able to proceed.");
+                    }
+                    break;
+                }
+                case "Deposit Money":{
+                    System.out.print("Enter the amount to deposit: ");
+                    double amount = Double.parseDouble(scanner.nextLine());
+                    account.deposite(amount);
+                    break;
+                }
+                case "Withdraw Money":{
+                    System.out.print("Enter the amount to withdraw: ");
+                    double amount = Double.parseDouble(scanner.nextLine());
+                    account.withdraw(amount);
+                    break;
+                }
+                case "Quit": {
+                    run = false;
+                    break;
                 }
             }
         }

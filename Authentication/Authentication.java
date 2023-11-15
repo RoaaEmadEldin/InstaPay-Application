@@ -15,9 +15,7 @@ public abstract class Authentication {
     protected boolean verifyPhoneNumber() {
         OTP otp = new OTP();
         otp.sendCode(phoneNumber);
-        if (!otp.verifyOTP())
-            return false;
-        return true;
+        return otp.verifyOTP();
     }
 
     public abstract UserAccount createAccount(String username, String password);
