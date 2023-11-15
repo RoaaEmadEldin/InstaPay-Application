@@ -23,9 +23,9 @@ public class BankAPI {
         return null;
     }
 
-    public static Boolean setUserBalance(String id, double balance) {
+    public static Boolean setUserBalance(String cardNumber, double balance) {
         for (Map<String, Object> user : users) {
-            if (user.get("id").equals(id)) {
+            if (user.get("cardNumber").equals(cardNumber)) {
                 user.put("balance", balance);
                 return true;
             }
@@ -33,10 +33,10 @@ public class BankAPI {
         return false;
     }
 
-    private static Map<String, Object> createUserAccount(String id, String name, String phoneNumber,
+    private static Map<String, Object> createUserAccount(String cardNumber, String name, String phoneNumber,
             double balance) {
         Map<String, Object> user = new HashMap<>();
-        user.put("id", id);
+        user.put("cardNumber", cardNumber);
         user.put("name", name);
         user.put("phoneNumber", phoneNumber);
         user.put("balance", balance);

@@ -16,7 +16,7 @@ public class WalletAuthentication extends Authentication {
 
     @Override
     public UserAccount createAccount(String username, String phoneNumber, String bankingID, String password) {
-        return new WalletAccountUser(username, phoneNumber, bankingID, password);
+        return new WalletAccountUser(username, phoneNumber, password);
     }
 
     @Override

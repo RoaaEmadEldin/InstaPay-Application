@@ -14,15 +14,13 @@ public abstract class UserAccount {
     protected String userName;
     protected String password;
     protected String phoneNumber;
-    protected String bankingID;
     protected BillManager billManager;
     protected Transferring transferring;
 
-    public UserAccount(String userName, String phoneNumber, String bankingID, String password) {
+    public UserAccount(String userName, String phoneNumber, String password) {
         this.userName = userName;
         this.password = password;
         this.phoneNumber = phoneNumber;
-        this.bankingID = bankingID;
         this.billManager = new BillManager(phoneNumber);
         this.transferring = new Transferring(this);
     }
@@ -43,10 +41,6 @@ public abstract class UserAccount {
 
     public String getPhoneNumber() {
         return phoneNumber;
-    }
-
-    public String getBankingID() {
-        return bankingID;
     }
 
     public Boolean payBill(Bill bill) {

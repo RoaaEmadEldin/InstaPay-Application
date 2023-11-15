@@ -1,15 +1,6 @@
-import java.util.ArrayList;
-import java.util.List;
-
-import API.BankAPI;
-import API.WalletAPI;
 import Account.BankAccountUser;
 import Account.UserAccount;
 import Account.WalletAccountUser;
-import Account.BillManager.Bill.Bill;
-import Authentication.Authentication;
-import Authentication.BankAuthentication;
-import Authentication.WalletAuthentication;
 
 public class App {
     public static void main(String[] args) {
@@ -17,7 +8,7 @@ public class App {
         // System.out.println(WalletAPI.getUser("id", "5"));
 
         UserAccount bankAccount = new BankAccountUser("usf_bank", "12345678901", "1111 1111 1111 1111", "Hhreoi123@");
-        UserAccount walletAccount = new WalletAccountUser("usf_wallet", "12345678905", "5", "Hhreoi123@");
+        UserAccount walletAccount = new WalletAccountUser("usf_wallet", "12345678905", "Hhreoi123@");
 
         // System.out.println(bankAccount.inquireBalance());
         // System.out.println(walletAccount.inquireBalance());
@@ -52,7 +43,7 @@ public class App {
         // System.out.println(account.inquireBalance());
         // }
 
-        bankAccount.transfer(520, walletAccount);
+        bankAccount.transfer(500, walletAccount);
 
         System.out.println(bankAccount.inquireBalance());
         System.out.println(walletAccount.inquireBalance());
