@@ -17,7 +17,7 @@ public class WalletAccountUser extends UserAccount {
     @Override
     public Boolean withdraw(double amount) {
         if (inquireBalance() >= amount)
-            return WalletAPI.setUserBalance(phoneNumber, amount);
+            return WalletAPI.setUserBalance(phoneNumber, inquireBalance() - amount);
         return false;
     }
 
