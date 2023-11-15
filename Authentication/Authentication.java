@@ -4,14 +4,23 @@ import Account.UserAccount;
 import Database.InstaPayDatabase;
 
 public abstract class Authentication {
-    public Authentication() {
+    String phoneNumber;
+
+    public Authentication(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    protected abstract boolean verifyInfo(String phoneNumber);
+    public abstract boolean verifyInfo();
 
-    public abstract UserAccount createAccount(String username, String phoneNumber, String bankingID, String password);
+    protected boolean verifyPhoneNumber() {
+        OTP otp = new OTP();
+        otp.sendCode(phoneNumber);
+        if (!otp.verifyOTP())
+            return false;
+        return true;
+    }
 
-    public abstract String getBankingID(String phoneNumber);
+    public abstract UserAccount createAccount(String username, String password);
 
     private boolean isUsernameUnique(String username) {
 
@@ -25,18 +34,10 @@ public abstract class Authentication {
         return password.matches(passwordRegex);
     }
 
-    public boolean Signup(String username, String password, String phoneNumber) {
-        if (!verifyInfo(phoneNumber))
-            return false;
-
-        OTP otp = new OTP();
-        otp.sendCode(phoneNumber);
-        if (!otp.verifyOTP())
-            return false;
-
+    public boolean Signup(String username, String password) {
         if (isUsernameUnique(username)) {
             if (isStrongPassword(password)) {
-                UserAccount user = createAccount(username, phoneNumber, getBankingID(phoneNumber), password);
+                UserAccount user = createAccount(username, password);
                 InstaPayDatabase.add(user);
                 System.out.println("Registration successful!");
                 return true;
@@ -50,7 +51,7 @@ public abstract class Authentication {
         }
     }
 
-    public UserAccount login(String username, String password) {
+    public static UserAccount login(String username, String password) {
         UserAccount user = InstaPayDatabase.get(username);
 
         if (user != null && isCorrectPassword(user, password)) {
@@ -61,7 +62,7 @@ public abstract class Authentication {
         return null;
     }
 
-    private boolean isCorrectPassword(UserAccount user, String enteredPassword) {
+    private static boolean isCorrectPassword(UserAccount user, String enteredPassword) {
         return user != null && user.getPassword().equals(enteredPassword);
     }
 

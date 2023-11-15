@@ -5,23 +5,29 @@ import Account.BankAccountUser;
 import Account.UserAccount;
 
 public class BankAuthentication extends Authentication {
+    String cardNumber;
 
-    public BankAuthentication() {
+    public BankAuthentication(String phoneNumber, String cardNumber) {
+        super(phoneNumber);
+        this.cardNumber = cardNumber;
     }
 
     @Override
-    public boolean verifyInfo(String phoneNumber) {
-        return BankAPI.getUser("phoneNumber", phoneNumber) != null;
+    public boolean verifyInfo() {
+        if (!BankAPI.exists(cardNumber, phoneNumber)) {
+            System.out.println("Please Check Card Number or PhoneNumber");
+            return false;
+        }
+        if (!verifyPhoneNumber()) {
+            System.out.println("Please Enter Correct OTP");
+            return false;
+        }
+        return true;
     }
 
     @Override
-    public UserAccount createAccount(String username, String phoneNumber, String bankingID, String password) {
-        return new BankAccountUser(username, phoneNumber, bankingID, password);
-    }
-
-    @Override
-    public String getBankingID(String phoneNumber) {
-        return (String) BankAPI.getUser("phoneNumber", phoneNumber).get("id");
+    public UserAccount createAccount(String username, String password) {
+        return new BankAccountUser(username, phoneNumber, cardNumber, password);
     }
 
 }

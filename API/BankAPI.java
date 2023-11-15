@@ -42,4 +42,12 @@ public class BankAPI {
         user.put("balance", balance);
         return user;
     }
+
+    public static Boolean exists(String cardNumber, String phone) {
+        for (Map<String, Object> user : users) {
+            if (user.get("cardNumber").equals(cardNumber) && user.get("phoneNumber").equals(phone))
+                return true;
+        }
+        return false;
+    }
 };

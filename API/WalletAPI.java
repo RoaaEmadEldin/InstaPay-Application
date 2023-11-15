@@ -41,4 +41,12 @@ public class WalletAPI {
         user.put("balance", balance);
         return user;
     }
+
+    public static Boolean exists(String phoneNumber) {
+        for (Map<String, Object> user : users) {
+            if (user.get("phoneNumber").equals(phoneNumber))
+                return true;
+        }
+        return false;
+    }
 };
