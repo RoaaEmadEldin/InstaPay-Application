@@ -1,33 +1,55 @@
-// package Account.Transferring;
-// import API.BankAPI;
-// public class BankTransfer extends Transferring
-// {
-// private String source, dest;
-// public BankTransfer(String source, String dest, double transferredMoney)
-// {
-// super(source, dest, transferredMoney);
-// this.source = source;
-// this.dest = dest;
-// }
-// public void MoneyValidation(double transferredMoney)
-// {
-// if (transferredMoney > (double) BankAPI.getUser("id", source).get("balance"))
-// {
-// throw new UnsupportedOperationException("You CAN'T transfer this amount of
-// money; it is MORE THAN your account balance");
-// }
-// }
-// public void Transfer(double transferredMoney)
-// {
-// double srcCurrentBalance = (double) BankAPI.getUser("id",
-// source).get("balance");
-// srcCurrentBalance -= transferredMoney;
-// double destCurrentBalance = (double) BankAPI.getUser("id",
-// dest).get("balance");
-// destCurrentBalance += transferredMoney;
-// BankAPI.setUserBalance(source, srcCurrentBalance);
-// BankAPI.setUserBalance(dest, destCurrentBalance);
-// System.out.println("Transferring is done Successfully, and your current
-// Balance is: " + srcCurrentBalance);
-// }
-// }
+package Account.Transferring;
+import API.BankAPI;
+import Account.UserAccount;
+import Account.WalletAccountUser;
+import java.util.Map;
+public class BankTransfer {
+    WalletAccountUser recipient;
+    UserAccount sender;
+
+    public BankTransfer(UserAccount sender) {
+        this.sender = sender;
+    }
+
+    public Boolean transfer(double transferredMoney, String CardNo) {
+        if (!validateAmount(transferredMoney))
+        {
+            System.out.println("You CAN'T transfer such amount of money because your balance is LESS THAN it, your balance is: " + sender.inquireBalance());
+            return false;
+        }
+
+        if (!validateCardRecipient(CardNo))
+        {
+            System.out.println("Recipient's Card number does not exist.");
+            return false;
+        }
+
+        // Retrieve recipient's account information
+        Map<String, Object> recipientInfo = BankAPI.getUser("cardNumber", CardNo);
+
+        if (recipientInfo != null) {
+            // Perform the transfer operation
+            sender.withdraw(transferredMoney);
+            BankAPI.setUserBalance(CardNo, (double) recipientInfo.get("balance") + transferredMoney);
+
+            System.out.println("Transferring is done Successfully, and your current Balance is: " + sender.inquireBalance());
+            return true;
+        } else {
+            System.out.println("Error: Unable to retrieve recipient's account information.");
+            return false;
+        }
+    }
+
+    private Boolean validateAmount(double transferredMoney)
+    {
+        return sender.inquireBalance() >= transferredMoney;
+    }
+
+    private Boolean validateCardRecipient(String CardNo) {
+        if (!BankAPI.Cardexists(CardNo))
+        {
+            return false;
+        }
+        return true;
+    }
+}
