@@ -12,6 +12,7 @@ public class BankAPI {
             add(createUserAccount("2222 2222 2222 2222", "Mike", "12345678902", 2000));
             add(createUserAccount("3333 3333 3333 3333", "Elena", "12345678903", 3000));
             add(createUserAccount("4444 4444 4444 4444", "Eve", "12345678904", 4000));
+            add(createUserAccount("1234 5678 9101 1121", "Roaa", "01014425536", 4000));
         }
     };
 
@@ -34,7 +35,7 @@ public class BankAPI {
     }
 
     private static Map<String, Object> createUserAccount(String cardNumber, String name, String phoneNumber,
-            double balance) {
+                                                         double balance) {
         Map<String, Object> user = new HashMap<>();
         user.put("cardNumber", cardNumber);
         user.put("name", name);
@@ -46,6 +47,14 @@ public class BankAPI {
     public static Boolean exists(String cardNumber, String phone) {
         for (Map<String, Object> user : users) {
             if (user.get("cardNumber").equals(cardNumber) && user.get("phoneNumber").equals(phone))
+                return true;
+        }
+        return false;
+    }
+
+    public static Boolean Cardexists(String cardNumber) {
+        for (Map<String, Object> user : users) {
+            if (user.get("cardNumber").equals(cardNumber))
                 return true;
         }
         return false;
