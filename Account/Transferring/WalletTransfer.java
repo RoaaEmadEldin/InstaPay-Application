@@ -1,33 +1,55 @@
-// package Account.Transferring;
-// import API.WalletAPI;
-// public class WalletTransfer extends Transferring
-// {
-// private String source, dest;
-// public WalletTransfer(String source, String dest, double transferredMoney) {
-// super(source, dest, transferredMoney);
-// this.source = source;
-// this.dest = dest;
-// }
-// public void MoneyValidation(double transferredMoney)
-// {
-// if (transferredMoney > (double) WalletAPI.getUser("id",
-// source).get("balance"))
-// {
-// throw new UnsupportedOperationException("You CAN'T transfer this amount of
-// money; it is MORE THAN your account balance");
-// }
-// }
-// public void Transfer(double transferredMoney)
-// {
-// double srcCurrentBalance = (double) WalletAPI.getUser("id",
-// source).get("balance");
-// srcCurrentBalance -= transferredMoney;
-// double destCurrentBalance = (double) WalletAPI.getUser("id",
-// dest).get("balance");
-// destCurrentBalance += transferredMoney;
-// WalletAPI.setUserBalance(source, srcCurrentBalance);
-// WalletAPI.setUserBalance(dest, destCurrentBalance);
-// System.out.println("Transferring is done Successfully, and your current
-// Balance is: " + srcCurrentBalance);
-// }
-// }
+package Account.Transferring;
+
+import API.WalletAPI;
+import Account.UserAccount;
+import Account.WalletAccountUser;
+import java.util.Map;
+public class WalletTransfer {
+    WalletAccountUser recipient;
+    UserAccount sender;
+
+    public WalletTransfer(UserAccount sender) {
+        this.sender = sender;
+    }
+
+    public Boolean transfer(double transferredMoney, String phoneRecipient) {
+        if (!validateAmount(transferredMoney))
+        {
+            System.out.println("You CAN'T transfer such amount of money because your balance is LESS THAN it, your balance is: " + sender.inquireBalance());
+            return false;
+        }
+
+        if ( !validatePhoneRecipient(phoneRecipient))
+        {
+            System.out.println("Recipient's phone number does not exist in the system OR doesn't have a Wallet on this number.");
+            return false;
+        }
+
+        // Retrieve recipient's account information
+        Map<String, Object> recipientInfo = WalletAPI.getUser("phoneNumber", phoneRecipient);
+
+        if (recipientInfo != null) {
+            // Perform the transfer operation
+            sender.withdraw(transferredMoney);
+            WalletAPI.setUserBalance(phoneRecipient, (double) recipientInfo.get("balance") + transferredMoney);
+
+            System.out.println("Transferring is done Successfully, and your current Balance is: " + sender.inquireBalance());
+            return true;
+        } else {
+            System.out.println("Error: Unable to retrieve recipient's account information.");
+            return false;
+        }
+    }
+
+    private Boolean validateAmount(double transferredMoney) {
+        return sender.inquireBalance() >= transferredMoney;
+    }
+
+    private Boolean validatePhoneRecipient(String phoneRecipient) {
+        if (!WalletAPI.exists(phoneRecipient)) {
+            return false;
+        }
+        return true;
+    }
+}
+
