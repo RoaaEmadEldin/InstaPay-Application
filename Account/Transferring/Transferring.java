@@ -1,35 +1,32 @@
 package Account.Transferring;
 
 import java.util.*;
-
 import Account.UserAccount;
+import Database.InstaPayDatabase;
 
 public class Transferring {
-    // String SourceAccountType;
-    // String DestAccountType;
     UserAccount sender;
 
-    public Transferring(UserAccount sender) {
+    public Transferring(UserAccount sender)
+    {
         this.sender = sender;
     }
 
-    // public void AccValidation(String source, String dest) {
-    // if (dest.equals("bank") && !source.equals("bank")) {
-    // throw new UnsupportedOperationException("The account you want to transfer
-    // from is NOT a bank account; hence, you CAN'T transfer to a bank account\n");
-    // }
-    // }
-
-    public Boolean Transfer(double transferredMoney, UserAccount recipient) {
+    public Boolean Transfer(double transferredMoney, String recipientUsername) {
         if (!validateAmount(transferredMoney))
             return false;
 
-        sender.withdraw(transferredMoney);
-        recipient.deposite(transferredMoney);
+        UserAccount recipient = InstaPayDatabase.get(recipientUsername);
 
-        System.out
-                .println("Transferring is done Successfully, and your current Balance is: " + sender.inquireBalance());
-        return true;
+        if (recipient != null) {
+            sender.withdraw(transferredMoney);
+            recipient.deposite(transferredMoney);
+            System.out.println("Transferring is done Successfully, and your current Balance is: " + sender.inquireBalance());
+            return true;
+        } else {
+            System.out.println("Recipient with username " + recipientUsername + " does not exist.");
+            return false;
+        }
     }
 
     private Boolean validateAmount(double transferredMoney) {
