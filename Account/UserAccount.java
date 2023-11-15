@@ -11,14 +11,12 @@ public abstract class UserAccount {
     protected String password;
     protected String phoneNumber;
     protected BillManager billManager;
-    protected Transferring transferring;
 
     public UserAccount(String userName, String phoneNumber, String password) {
         this.userName = userName;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.billManager = new BillManager(phoneNumber);
-        this.transferring = new Transferring(this);
     }
 
     public abstract double inquireBalance();
@@ -50,7 +48,7 @@ public abstract class UserAccount {
         return billManager.getBills();
     }
 
-    public Boolean transfer(double amount, String recipient) {
-        return transferring.Transfer(amount, recipient);
+    public Boolean transfer(Transferring transferType, double amount) {
+        return transferType.transfer(amount);
     }
 }

@@ -4,10 +4,15 @@ import java.util.Scanner;
 
 import Account.BankAccountUser;
 import Account.BillManager.Bill.Bill;
+import Account.Transferring.AccountTransfer;
+import Account.Transferring.BankTransfer;
+import Account.Transferring.Transferring;
+import Account.Transferring.WalletTransfer;
 import Account.UserAccount;
 import Authentication.Authentication;
 import Authentication.BankAuthentication;
 import Authentication.WalletAuthentication;
+import Database.InstaPayDatabase;
 
 public class App {
     static Scanner scanner = new Scanner(System.in);
@@ -20,7 +25,7 @@ public class App {
         System.out.println("Welcome to Instapay Application:)");
         System.out.println("Would you like to: ");
         while (run) {
-            // clearScreen();
+            clearScreen();
             if (status.equals("actions")) {
                 System.out
                         .println("\n----------------- Welcome Back " + account.getUserName() + " -----------------\n");
@@ -32,7 +37,7 @@ public class App {
             System.out.println();
             System.out.print("Select Action: ");
             answer = Integer.parseInt(scanner.nextLine());
-            // clearScreen();
+            clearScreen();
             switch (menu.get(answer - 1)) {
                 case "Log In": {
                     String username, password;
@@ -101,17 +106,39 @@ public class App {
                     break;
                 }
                 case "Transfer to another Instapay Account.": {
-                    // Call Implementation Here
+                    System.out.print("Please Enter The amount of money you want to transfer: ");
+                    double Money = Integer.parseInt(scanner.nextLine());
+                    System.out.print(
+                            "Please Enter Username of the InstaPay account you want to transfer to it the money: ");
+                    String UN = scanner.nextLine();
+                    Transferring transfer = new AccountTransfer(account, InstaPayDatabase.get(UN));
+                    if (!transfer.transfer(Money))
+                        System.out.println("Insufficient Balance!");
+                    status = "actions";
                     break;
                 }
                 case "Transfer to Wallet.": {
-                    // Call Implementation Here
-                    System.out.println("wallet transfer");
+                    System.out.print("Please Enter The amount of money you want to transfer: ");
+                    double Money = Integer.parseInt(scanner.nextLine());
+                    System.out.print(
+                            "Please Enter The Phone Number of the Wallet account you want to transfer to it the money: ");
+                    String phoneNumber = scanner.nextLine();
+                    Transferring transfer = new WalletTransfer(account, phoneNumber);
+                    if (!transfer.transfer(Money))
+                        System.out.println("Insufficient Balance!");
+                    status = "actions";
                     break;
                 }
                 case "Transfer to Bank Account.": {
-                    System.out.println("bank transfer");
-                    // Call Implementation Here
+                    System.out.print("Please Enter The amount of money you want to transfer: ");
+                    double Money = Integer.parseInt(scanner.nextLine());
+                    System.out.print(
+                            "Please Enter The Card Number of the bank account you want to transfer to it the money: ");
+                    String TransferredCardNo = scanner.nextLine();
+                    Transferring transfer = new BankTransfer(account, TransferredCardNo);
+                    if (!transfer.transfer(Money))
+                        System.out.println("Insufficient Balance!");
+                    status = "actions";
                     break;
                 }
                 case "Inquire Balance": {
@@ -157,6 +184,7 @@ public class App {
                     break;
                 }
             }
+            scanner.nextLine();
         }
 
     }
