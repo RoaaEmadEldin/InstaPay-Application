@@ -33,6 +33,7 @@ public class OTP {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the OTP code: ");
         String enteredCode = scanner.nextLine();
+        scanner.close();
         return verifyCode(enteredCode);
     }
 

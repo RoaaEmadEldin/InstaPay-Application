@@ -1,7 +1,6 @@
 package Account.Transferring;
 
 import Account.UserAccount;
-import Database.InstaPayDatabase;
 
 public class AccountTransfer extends Transferring {
     UserAccount recipientAccount;

@@ -1,6 +1,5 @@
 package Account.BillManager.Bill;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import API.BillProvidor.ProvidorAPI;

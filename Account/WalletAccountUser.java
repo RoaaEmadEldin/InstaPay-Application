@@ -1,8 +1,6 @@
 package Account;
 
-import API.BankAPI;
 import API.WalletAPI;
-import Account.BillManager.Bill.Bill;
 
 public class WalletAccountUser extends UserAccount {
     public WalletAccountUser(String userName, String phoneNumber, String password) {

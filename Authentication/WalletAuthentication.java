@@ -1,6 +1,5 @@
 package Authentication;
 
-import API.BankAPI;
 import API.WalletAPI;
 import Account.UserAccount;
 import Account.WalletAccountUser;

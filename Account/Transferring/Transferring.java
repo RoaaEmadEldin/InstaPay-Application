@@ -1,8 +1,6 @@
 package Account.Transferring;
 
-import java.util.*;
 import Account.UserAccount;
-import Database.InstaPayDatabase;
 
 public abstract class Transferring {
     UserAccount sender;
