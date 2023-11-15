@@ -10,7 +10,6 @@ import Account.BillManager.Bill.Bill;
 import Account.BillManager.Bill.WaterBill;
 
 public class WaterProvidor extends ProvidorAPI {
-    private WaterProvidor THIS = this;
 
     public WaterProvidor() {
         super();
@@ -74,5 +73,10 @@ public class WaterProvidor extends ProvidorAPI {
         };
 
         parseBillsData(billsData);
+    }
+
+    @Override
+    public String toString() {
+        return "Water Providor";
     }
 };

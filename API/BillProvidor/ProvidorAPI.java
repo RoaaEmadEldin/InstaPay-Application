@@ -1,6 +1,7 @@
 package API.BillProvidor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,8 +9,11 @@ import Account.BillManager.Bill.Bill;
 
 public abstract class ProvidorAPI {
     protected Map<String, List<Bill>> bills;
+    ProvidorAPI THIS;
 
     public ProvidorAPI() {
+        this.THIS = this;
+        this.bills = new HashMap<String, List<Bill>>();
         loadBillsData();
     }
 

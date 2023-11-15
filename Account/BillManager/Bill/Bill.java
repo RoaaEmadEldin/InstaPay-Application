@@ -36,6 +36,6 @@ public abstract class Bill {
 
     @Override
     public String toString() {
-        return providor + ": " + price + " -> " + dueDate;
+        return providor.toString() + ": " + price + " -> " + dueDate;
     }
 }

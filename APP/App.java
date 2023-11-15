@@ -21,8 +21,9 @@ public class App {
         System.out.println("Would you like to: ");
         while (run) {
             // clearScreen();
-            if (status.equals("actions")){
-                System.out.println("\n----------------- Welcome Back " + account.getUserName() + " -----------------\n");
+            if (status.equals("actions")) {
+                System.out
+                        .println("\n----------------- Welcome Back " + account.getUserName() + " -----------------\n");
             }
             ArrayList<String> menu = getMainMenu(status);
             for (int i = 0; i < menu.size(); i++) {
@@ -40,7 +41,7 @@ public class App {
                     System.out.print("Enter Your Password: ");
                     password = scanner.nextLine();
                     account = Authentication.login(username, password);
-                    if (account != null){
+                    if (account != null) {
                         status = "actions";
                     }
                     break;
@@ -92,24 +93,23 @@ public class App {
                     }
                 }
                 case "Transfer Money": {
-                    if (account instanceof BankAccountUser){
+                    if (account instanceof BankAccountUser) {
                         status = "Transfer-Bank";
-                    }
-                    else{
+                    } else {
                         status = "Transfer-Normal";
                     }
                     break;
                 }
-                case "Transfer to another Instapay Account.":{
+                case "Transfer to another Instapay Account.": {
                     // Call Implementation Here
                     break;
                 }
-                case "Transfer to Wallet.":{
+                case "Transfer to Wallet.": {
                     // Call Implementation Here
                     System.out.println("wallet transfer");
                     break;
                 }
-                case "Transfer to Bank Account.":{
+                case "Transfer to Bank Account.": {
                     System.out.println("bank transfer");
                     // Call Implementation Here
                     break;
@@ -119,7 +119,7 @@ public class App {
                     System.out.print(account.inquireBalance());
                     break;
                 }
-                case "Pay Bills":{
+                case "Pay Bills": {
                     List<Bill> accountBills = account.getBills();
                     int i = 1;
                     System.out.println("Your Bills: \n");
@@ -130,23 +130,23 @@ public class App {
                     System.out.println();
                     System.out.print("Select the Bill You Want to Pay: ");
                     int choice = Integer.parseInt(scanner.nextLine());
-                    if (account.payBill(account.getBills().get(choice - 1))){
+                    if (account.payBill(account.getBills().get(choice - 1))) {
                         System.out.println("The Selected Bill is Payed Successfully");
-                    }
-                    else{
+                    } else {
                         double billPrice = account.getBills().get(choice - 1).getPrice();
                         double balance = account.inquireBalance();
-                        System.out.println("Your Balance is Insufficient. Please Deposit " + (billPrice - balance) + " to be able to proceed.");
+                        System.out.println("Your Balance is Insufficient. Please Deposit " + (billPrice - balance)
+                                + " to be able to proceed.");
                     }
                     break;
                 }
-                case "Deposit Money":{
+                case "Deposit Money": {
                     System.out.print("Enter the amount to deposit: ");
                     double amount = Double.parseDouble(scanner.nextLine());
                     account.deposite(amount);
                     break;
                 }
-                case "Withdraw Money":{
+                case "Withdraw Money": {
                     System.out.print("Enter the amount to withdraw: ");
                     double amount = Double.parseDouble(scanner.nextLine());
                     account.withdraw(amount);

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import API.BillProvidor.ProvidorAPI;
+import API.BillProvidor.ProvidorsList;
 import Account.BillManager.Bill.Bill;
-import Database.ProvidorsList;
 
 public class BillManager {
     String registeredNumber;
@@ -21,6 +21,8 @@ public class BillManager {
     private List<Bill> loadBills() {
         List<Bill> tempBills = new ArrayList<>();
         for (ProvidorAPI providor : providors) {
+            if (providor.getBills(registeredNumber) == null)
+                continue;
             for (Bill bill : providor.getBills(registeredNumber)) {
                 tempBills.add(bill);
             }

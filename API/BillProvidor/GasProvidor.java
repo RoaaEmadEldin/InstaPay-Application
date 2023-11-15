@@ -10,7 +10,6 @@ import Account.BillManager.Bill.Bill;
 import Account.BillManager.Bill.GasBill;
 
 public class GasProvidor extends ProvidorAPI {
-    private GasProvidor THIS = this;
 
     public GasProvidor() {
         super();
@@ -74,5 +73,10 @@ public class GasProvidor extends ProvidorAPI {
         };
 
         parseBillsData(billsData);
+    }
+
+    @Override
+    public String toString() {
+        return "Gas Providor";
     }
 };

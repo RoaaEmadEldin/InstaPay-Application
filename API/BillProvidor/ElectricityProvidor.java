@@ -10,8 +10,6 @@ import Account.BillManager.Bill.Bill;
 import Account.BillManager.Bill.ElectricityBill;
 
 public class ElectricityProvidor extends ProvidorAPI {
-    private ElectricityProvidor THIS = this;
-
     public ElectricityProvidor() {
         super();
     }
@@ -62,5 +60,10 @@ public class ElectricityProvidor extends ProvidorAPI {
         };
 
         parseBillsData(billsData);
+    }
+
+    @Override
+    public String toString() {
+        return "Electricity Providor";
     }
 };
