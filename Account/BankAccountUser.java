@@ -4,26 +4,29 @@ import API.BankAPI;
 
 public class BankAccountUser extends UserAccount {
 
-    public BankAccountUser(String userName, String phoneNumber, String bankingID) {
-        super(userName, phoneNumber, bankingID);
+    String cardNumber;
+
+    public BankAccountUser(String userName, String phoneNumber, String cardNumber, String password) {
+        super(userName, phoneNumber, password);
+        this.cardNumber = cardNumber;
     }
 
     @Override
     public double inquireBalance() {
-        return (double) BankAPI.getUser("id", bankingID).get("balance");
+        return (double) BankAPI.getUser("cardNumber", cardNumber).get("balance");
     }
 
     @Override
     public Boolean withdraw(double amount) {
         amount = Math.abs(amount);
         if (inquireBalance() >= amount)
-            return BankAPI.setUserBalance(bankingID, inquireBalance() - amount);
+            return BankAPI.setUserBalance(cardNumber, inquireBalance() - amount);
         return false;
     }
 
     @Override
     public Boolean deposite(double amount) {
         amount = Math.abs(amount);
-        return BankAPI.setUserBalance(bankingID, inquireBalance() + amount);
+        return BankAPI.setUserBalance(cardNumber, inquireBalance() + amount);
     }
 }

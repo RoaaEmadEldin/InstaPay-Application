@@ -8,10 +8,10 @@ import java.util.Map;
 public class WalletAPI {
     private static List<Map<String, Object>> users = new ArrayList<>() {
         {
-            add(createUserAccount("5", "Smith", "12345678905", 5000));
-            add(createUserAccount("6", "Michael", "12345678906", 6000));
-            add(createUserAccount("7", "Elenoise", "12345678907", 7000));
-            add(createUserAccount("8", "Eva", "12345678908", 8000));
+            add(createUserAccount("Smith", "12345678905", 5000));
+            add(createUserAccount("Michael", "12345678906", 6000));
+            add(createUserAccount("Elenoise", "12345678907", 7000));
+            add(createUserAccount("Eva", "12345678908", 8000));
         }
     };
 
@@ -23,9 +23,9 @@ public class WalletAPI {
         return null;
     }
 
-    public static Boolean setUserBalance(int id, double balance) {
+    public static Boolean setUserBalance(String phoneNumber, double balance) {
         for (Map<String, Object> user : users) {
-            if (user.get("id").equals(id)) {
+            if (user.get("phoneNumber").equals(phoneNumber)) {
                 user.put("balance", balance);
                 return true;
             }
@@ -33,13 +33,20 @@ public class WalletAPI {
         return false;
     }
 
-    private static Map<String, Object> createUserAccount(String id, String name, String phoneNumber,
+    private static Map<String, Object> createUserAccount(String name, String phoneNumber,
             double balance) {
         Map<String, Object> user = new HashMap<>();
-        user.put("id", id);
         user.put("name", name);
         user.put("phoneNumber", phoneNumber);
         user.put("balance", balance);
         return user;
+    }
+
+    public static Boolean exists(String phoneNumber) {
+        for (Map<String, Object> user : users) {
+            if (user.get("phoneNumber").equals(phoneNumber))
+                return true;
+        }
+        return false;
     }
 };

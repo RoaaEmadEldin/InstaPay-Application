@@ -1,9 +1,13 @@
-package Database;
+// package Database;
 
-import Account.UserAccount;
+// import Account.UserAccount;
 
-public interface ORM {
-    void add(UserAccount user);
+// public abstract class ORM {
+// public static final abstract void add(UserAccount user){
+// return;
+// }
 
-    UserAccount get(String username);
-}
+// public static abstract UserAccount get(String username){
+// return null;
+// }
+// }
