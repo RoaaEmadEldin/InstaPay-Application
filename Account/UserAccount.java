@@ -50,7 +50,7 @@ public abstract class UserAccount {
         return billManager.getBills();
     }
 
-    public Boolean transfer(double amount, UserAccount recipient) {
+    public Boolean transfer(double amount, String recipient) {
         return transferring.Transfer(amount, recipient);
     }
 }
