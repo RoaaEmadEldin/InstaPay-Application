@@ -4,8 +4,8 @@ import API.BankAPI;
 
 public class BankAccountUser extends UserAccount {
 
-    public BankAccountUser(String userName, String phoneNumber, String bankingID) {
-        super(userName, phoneNumber, bankingID);
+    public BankAccountUser(String userName, String phoneNumber, String bankingID, String password) {
+        super(userName, phoneNumber, bankingID, password);
     }
 
     @Override

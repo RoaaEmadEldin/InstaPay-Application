@@ -5,18 +5,18 @@ import Account.UserAccount;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InstaPayDatabase implements ORM {
-    private List<UserAccount> accounts = new ArrayList<>();
+public class InstaPayDatabase {
+    private static List<UserAccount> accounts = new ArrayList<>();
 
-    @Override
-    public void add(UserAccount user) {
+    public static void add(UserAccount user) {
         accounts.add(user);
     }
-public int getnum(){
+
+    public static int getnum() {
         return accounts.size();
-}
-    @Override
-    public UserAccount get(String username) {
+    }
+
+    public static UserAccount get(String username) {
         for (UserAccount account : accounts) {
             if (account.getUserName().equals(username)) {
                 return account;

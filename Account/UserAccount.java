@@ -8,20 +8,23 @@ import java.util.Map;
 import Account.BillManager.BillManager;
 import Account.BillManager.Bill.Bill;
 import Account.BillManager.Bill.Providor;
+import Account.Transferring.Transferring;
 
 public abstract class UserAccount {
     protected String userName;
     protected String password;
     protected String phoneNumber;
-    protected int bankingID;
+    protected String bankingID;
     protected BillManager billManager;
+    protected Transferring transferring;
 
-    public UserAccount(String userName, String phoneNumber, int bankingID,String password) {
+    public UserAccount(String userName, String phoneNumber, String bankingID, String password) {
         this.userName = userName;
-        this.password=password;
+        this.password = password;
         this.phoneNumber = phoneNumber;
         this.bankingID = bankingID;
         this.billManager = new BillManager(phoneNumber);
+        this.transferring = new Transferring(this);
     }
 
     public abstract double inquireBalance();
@@ -33,6 +36,7 @@ public abstract class UserAccount {
     public String getUserName() {
         return userName;
     }
+
     public String getPassword() {
         return password;
     }
@@ -41,7 +45,7 @@ public abstract class UserAccount {
         return phoneNumber;
     }
 
-    public int getBankingID() {
+    public String getBankingID() {
         return bankingID;
     }
 
@@ -54,5 +58,9 @@ public abstract class UserAccount {
 
     public List<Bill> getBills() {
         return billManager.getBills();
+    }
+
+    public Boolean transfer(double amount, UserAccount recipient) {
+        return transferring.Transfer(amount, recipient);
     }
 }

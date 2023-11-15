@@ -6,8 +6,8 @@ import Account.BillManager.Bill.Bill;
 
 public class WalletAccountUser extends UserAccount {
 
-    public WalletAccountUser(String userName, String phoneNumber, int bankingID,String password) {
-        super(userName,phoneNumber ,bankingID,password );
+    public WalletAccountUser(String userName, String phoneNumber, String bankingID, String password) {
+        super(userName, phoneNumber, bankingID, password);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class WalletAccountUser extends UserAccount {
 
     @Override
     public Boolean deposite(double amount) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deposite'");
+        amount = Math.abs(amount);
+        return WalletAPI.setUserBalance(bankingID, inquireBalance() + amount);
     }
 }

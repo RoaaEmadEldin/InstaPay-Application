@@ -23,7 +23,7 @@ public class WalletAPI {
         return null;
     }
 
-    public static Boolean setUserBalance(int id, double balance) {
+    public static Boolean setUserBalance(String id, double balance) {
         for (Map<String, Object> user : users) {
             if (user.get("id").equals(id)) {
                 user.put("balance", balance);

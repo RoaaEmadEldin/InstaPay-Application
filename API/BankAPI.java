@@ -8,10 +8,10 @@ import java.util.Map;
 public class BankAPI {
     private static List<Map<String, Object>> users = new ArrayList<>() {
         {
-            add(createUserAccount("1", "Sam", "12345678901", 1000));
-            add(createUserAccount("2", "Mike", "12345678902", 2000));
-            add(createUserAccount("3", "Elena", "12345678903", 3000));
-            add(createUserAccount("4", "Eve", "12345678904", 4000));
+            add(createUserAccount("1111 1111 1111 1111", "Sam", "12345678901", 1000));
+            add(createUserAccount("2222 2222 2222 2222", "Mike", "12345678902", 2000));
+            add(createUserAccount("3333 3333 3333 3333", "Elena", "12345678903", 3000));
+            add(createUserAccount("4444 4444 4444 4444", "Eve", "12345678904", 4000));
         }
     };
 
