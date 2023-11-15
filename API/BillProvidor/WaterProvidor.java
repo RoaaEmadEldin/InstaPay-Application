@@ -72,7 +72,7 @@ public class WaterProvidor extends ProvidorAPI {
             }
         };
 
-        parseBillsData(billsData);
+        setBills(billsData);
     }
 
     @Override

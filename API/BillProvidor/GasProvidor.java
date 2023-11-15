@@ -72,7 +72,7 @@ public class GasProvidor extends ProvidorAPI {
             }
         };
 
-        parseBillsData(billsData);
+        setBills(billsData);
     }
 
     @Override

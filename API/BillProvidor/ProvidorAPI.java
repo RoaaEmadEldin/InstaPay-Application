@@ -9,7 +9,7 @@ import Account.BillManager.Bill.Bill;
 
 public abstract class ProvidorAPI {
     protected Map<String, List<Bill>> bills;
-    ProvidorAPI THIS;
+    protected ProvidorAPI THIS;
 
     public ProvidorAPI() {
         this.THIS = this;
@@ -17,15 +17,8 @@ public abstract class ProvidorAPI {
         loadBillsData();
     }
 
-    protected void parseBillsData(Map<String, List<Bill>> billsData) {
-        for (Map.Entry<String, List<Bill>> user : billsData.entrySet()) {
-            if (bills.get(user.getKey()) == null)
-                bills.put(user.getKey(), new ArrayList<Bill>());
-
-            for (Bill bill : user.getValue()) {
-                bills.get(user.getKey()).add(bill);
-            }
-        }
+    protected void setBills(Map<String, List<Bill>> billsData) {
+        this.bills = billsData;
     }
 
     public List<Bill> getBills(String phoneNumber) {

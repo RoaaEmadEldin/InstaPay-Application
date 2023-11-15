@@ -59,7 +59,7 @@ public class ElectricityProvidor extends ProvidorAPI {
             }
         };
 
-        parseBillsData(billsData);
+        setBills(billsData);
     }
 
     @Override
