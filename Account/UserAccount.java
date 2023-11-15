@@ -1,13 +1,9 @@
 package Account;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import Account.BillManager.BillManager;
 import Account.BillManager.Bill.Bill;
-import Account.BillManager.Bill.Providor;
 import Account.Transferring.Transferring;
 
 public abstract class UserAccount {

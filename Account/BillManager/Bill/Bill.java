@@ -3,16 +3,19 @@ package Account.BillManager.Bill;
 import java.util.ArrayList;
 import java.util.Date;
 
+import API.BillProvidor.ProvidorAPI;
+
 public abstract class Bill {
     protected double price;
     protected Date dueDate;
-    protected Providor providor;
+    protected ProvidorAPI providor;
     protected String id;
 
-    public Bill(String id, double price, Date dueDate) {
+    public Bill(String id, double price, Date dueDate, ProvidorAPI providor) {
         this.id = id;
         this.price = price;
         this.dueDate = dueDate;
+        this.providor = providor;
     }
 
     public double getPrice() {
@@ -23,7 +26,7 @@ public abstract class Bill {
         return dueDate;
     }
 
-    public Providor getProvidor() {
+    public ProvidorAPI getProvidor() {
         return providor;
     }
 
